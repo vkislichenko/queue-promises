@@ -67,6 +67,13 @@ trait PromiseFinishConditions
      */
     protected function shouldFinish(MayPromised $job): bool
     {
+        \Log::debug('PromiseFinishConditions (shouldFinish)', [
+            'promise_jobs_count' => count($this->promise_jobs),
+            'job_status' => $job->getJobStatus(),
+            'promise_finish_on_first_success' => $this->promise_finish_on_first_success,
+            'promise_finish_on_first_error' => $this->promise_finish_on_first_error,
+        ]);
+
         // Если других джобов не осталось - завершаемся в любом случае
         if (empty($this->promise_jobs)) {
             return true;
